@@ -14,12 +14,12 @@ jobs:
       - uses: actions/checkout@v3
 
       - name: make C program
+        working-directory: build
         run: gcc -o add build/add.c
 
       - name: Run a one-line script
-        run: ls
+        working-directory: build
+        run: docker build -t ghcr.io/skiyl9x/_add_c_app:rh8_v3 -f Dockerfile .
 
       - name: Run a multi-line script
-        run: |
-          echo Add other actions to build,
-          echo test, and deploy your project.
+        run: docker push ghcr.io/skiyl9x/_add_c_app:rh8_v3
