@@ -3,8 +3,9 @@ name: c-build
 on:
   push:
     branches: [ "dev" ]
-
-  workflow_dispatch:
+      
+env:
+  REGISTRY: ghcr.io
 
 jobs:
   build:
@@ -22,9 +23,12 @@ jobs:
         run: |
             docker build -t ghcr.io/skiyl9x/add_c_app:$GITHUB_RUN_ID -f Dockerfile .
 
-      - name: Login to GH Packages
-        run: |
-            echo ${{ secrets.GH_PACKAGES_TOKEN }} | docker login ghcr.io -u skiyl9x --password-stdin
+      - name: Log in to the Container registry
+        uses: docker/login-action@f054a8b539a109f9f41c372932f1ae047eff08c9
+        with:
+          registry: ${{ env.REGISTRY }}
+          username: ${{ github.actor }}
+          password: ${{ secrets.GITHUB_TOKEN }}
 
       - name: Run a multi-line script
         run: |
