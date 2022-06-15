@@ -28,7 +28,4 @@ jobs:
 
       - name: Run a multi-line script
         run: |
-            docker push ghcr.io/skiyl9x/add_c_app:v1
-
-      - name: Show GitHub RUN ID
-        run: echo $GITHUB_RUN_ID
+            docker push ghcr.io/skiyl9x/add_c_app:$GITHUB_RUN_ID
