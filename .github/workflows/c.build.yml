@@ -1,0 +1,25 @@
+name: c-build
+
+on:
+  push:
+    branches: [ "dev" ]
+
+  workflow_dispatch:
+
+jobs:
+  build:
+    runs-on: self-hosted
+    
+    steps:
+      - uses: actions/checkout@v3
+
+      - name: make C program
+        run: gcc build/add.c
+
+      - name: Run a one-line script
+        run: ls build
+
+      - name: Run a multi-line script
+        run: |
+          echo Add other actions to build,
+          echo test, and deploy your project.
