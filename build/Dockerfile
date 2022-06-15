@@ -1,3 +1,4 @@
 FROM alpine
 ARG FILENAME=add
 COPY ${FILENAME} ${FILENAME}
+CMD ["/add"]

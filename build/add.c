@@ -1,8 +1,11 @@
-#include<stdio.h>
-void main() { 
-  int a,b,c;
-  printf("Enter two Numbers : ");
-  scanf("%d %d",&a,&b);
-  c=a+b;
-  printf("Sum is %d",c);
+#include <stdio.h>
+
+int main() {
+    int i;
+    for(; ;) {
+       printf("hello\n");
+       fflush(stdout);
+       sleep(1);
+    }       
 }
+
