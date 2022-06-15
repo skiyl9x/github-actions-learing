@@ -24,4 +24,4 @@ jobs:
 
       - name: Run a multi-line script
         run: |
-            docker push ghcr.io/skiyl9x/_add_c_app:rh8_v3
+            docker push ghcr.io/skiyl9x/add_c_app:v1
