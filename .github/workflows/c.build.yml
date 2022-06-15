@@ -19,7 +19,9 @@ jobs:
 
       - name: Run a one-line script
         working-directory: build
-        run: docker build -t ghcr.io/skiyl9x/_add_c_app:rh8_v3 -f Dockerfile .
+        run: |
+            docker build -t ghcr.io/skiyl9x/add_c_app:v1 -f Dockerfile .
 
       - name: Run a multi-line script
-        run: docker push ghcr.io/skiyl9x/_add_c_app:rh8_v3
+        run: |
+            docker push ghcr.io/skiyl9x/_add_c_app:rh8_v3
