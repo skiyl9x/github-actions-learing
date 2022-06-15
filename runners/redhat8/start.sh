@@ -5,4 +5,4 @@ cd /home/runner/actions-runner
 
 ./config.sh --url https://github.com/skiyl9x/github-actions-learing --token $REG_TOKEN --labels RedHat8,terraform-instance
 ./run.sh & tail -f /dev/null
-
+#
