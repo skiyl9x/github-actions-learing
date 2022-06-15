@@ -15,7 +15,7 @@ jobs:
 
       - name: make C program
         working-directory: build
-        run: gcc -o add build/add.c
+        run: gcc -o add add.c
 
       - name: Run a one-line script
         working-directory: build
