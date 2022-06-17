@@ -1,4 +1,4 @@
-name: deployment
+name: deploy
 
 on:
   workflow_dispatch:
@@ -6,7 +6,7 @@ on:
       environment:
         description: 'Environment to run tests against'
         type: environment
-        required: true 
+        required: true
 jobs:
   deployToTesting:
     runs-on: RedHat8
