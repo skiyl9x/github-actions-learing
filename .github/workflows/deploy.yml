@@ -14,17 +14,16 @@ jobs:
     concurrency: testing
     steps:
       - 
-       name: copy certs
+       name: get certs
        env:
         DOCKER_CA_PEM: "${{ secrets.DOCKER_CA_PEM }}"
         DOCKER_CLIENT_CERT_PEM: "${{ secrets.DOCKER_CLIENT_CERT_PEM }}"
         DOCKER_CLIENT_KEY_PEM: "${{ secrets.DOCKER_CLIENT_KEY_PEM }}"
        run: |
             echo "$DOCKER_CA_PEM" > ca.pem
-            echo "$OCKER_CLIENT_CERT_PEM" > client-cert.pem
+            echo "$DOCKER_CLIENT_CERT_PEM" > client-cert.pem
             echo "$DOCKER_CLIENT_KEY_PEM" > client-key.pem
       - 
         name: check docker connection
         run: |
-            cat ca.pem
             docker --tlsverify --tlscacert=ca.pem --tlscert=client-cert.pem --tlskey=client-key.pem -H=127.0.0.1:2375 version
