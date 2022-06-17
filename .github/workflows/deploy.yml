@@ -19,10 +19,11 @@ jobs:
         DOCKER_CLIENT_CERT_PEM: ${{ secrets.DOCKER_CLIENT_CERT_PEM }}
         DOCKER_CLIENT_KEY_PEM: ${{ secrets.DOCKER_CLIENT_KEY_PEM }}
        run: |
-            echo "$DOCKER_CA_PEM" > /ca.pem
-            echo "$OCKER_CLIENT_CERT_PEM" > /cert.pem 
-            echo "$DOCKER_CLIENT_KEY_PEM" > /key.pem
+            echo "$DOCKER_CA_PEM" > ca.pem
+            echo "$OCKER_CLIENT_CERT_PEM" > cert.pem 
+            echo "$DOCKER_CLIENT_KEY_PEM" > key.pem
       - 
         name: check docker connection
         run: |
+            cat ca.pem
             docker --tlsverify --tlscacert=ca.pem --tlscert=cert.pem --tlskey=key.pem -H=35.240.69.15:2375 version
