@@ -7,10 +7,44 @@ on:
         description: 'Environment to run tests against'
         type: environment
         required: true
+env:
+  REGISTRY: ghcr.io
+  IMAGE_NAME: ${{ github.repository }}
+
 jobs:
   deployToTesting:
     runs-on: RedHat8
-    environment: production
+    environment: testing
+    concurrency: testing
     steps:
       - 
-        uses: actions/checkout@v3
+       name: get certs
+       env:
+        DOCKER_CA_PEM: "${{ secrets.DOCKER_CA_PEM }}"
+        DOCKER_CLIENT_CERT_PEM: "${{ secrets.DOCKER_CLIENT_CERT_PEM }}"
+        DOCKER_CLIENT_KEY_PEM: "${{ secrets.DOCKER_CLIENT_KEY_PEM }}"
+        DOCKER_REMOTE_IP: 20.117.234.10
+       run: |
+            echo "$DOCKER_CA_PEM" > ca.pem
+            echo "$DOCKER_CLIENT_CERT_PEM" > client-cert.pem
+            echo "$DOCKER_CLIENT_KEY_PEM" > client-key.pem
+      - 
+        name: check docker connection
+        run: |
+            echo ${{ secrets.DOCKER_REMOTE_IP }}
+            echo $DOCKER_REMOTE_IP
+            docker --tlsverify --tlscacert=ca.pem --tlscert=client-cert.pem --tlskey=client-key.pem -H=$DOCKER_REMOTE_IP:2375 version
+            
+      -
+        name: Log in to the Container registry
+        uses: docker/login-action@f054a8b539a109f9f41c372932f1ae047eff08c9
+        with:
+          registry: ${{ env.REGISTRY }}
+          username: ${{ github.actor }}
+          password: ${{ secrets.GITHUB_TOKEN }}   
+      - 
+        name: deploy application
+        env:
+          DOCKER_REMOTE_IP: 20.117.234.10
+        run: |
+            docker --tlsverify --tlscacert=ca.pem --tlscert=client-cert.pem --tlskey=client-key.pem -H=$DOCKER_REMOTE_IP:2375 run --name hello -d ${{ env.REGISTRY }}/${{ env.IMAGE_NAME }}:dev
