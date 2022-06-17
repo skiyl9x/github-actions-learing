@@ -4,9 +4,9 @@ on:
   workflow_dispatch:
     inputs:
       environment:
-      description: 'Environment to run tests against'
-      type: environment
-      required: true 
+        description: 'Environment to run tests against'
+        type: environment
+        required: true 
 jobs:
   deployToTesting:
     runs-on: RedHat8
