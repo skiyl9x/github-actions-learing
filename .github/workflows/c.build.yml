@@ -45,7 +45,6 @@ jobs:
 #           tags: ${{ steps.meta.outputs.tags }}
 #           labels: ${{ steps.meta.outputs.labels }}
 
-<<<<<<< HEAD
       - name: Extract metadata (tags, labels) for Docker
         id: meta
         uses: docker/metadata-action@98669ae865ea3cffbcbaa878cf57c20bbf1c6c38
@@ -62,8 +61,3 @@ jobs:
           #- name: Run a multi-line script
           #run: |
           # docker push ghcr.io/skiyl9x/add_c_app:$GITHUB_RUN_ID
-=======
-      - name: Run a multi-line script
-        run: |
-            docker push ghcr.io/skiyl9x/add_c_app:$GITHUB_RUN_ID
->>>>>>> 5592317cb0a91fdc9675ada198e770fcb80e9070
