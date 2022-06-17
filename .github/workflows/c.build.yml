@@ -51,7 +51,7 @@ jobs:
       - 
         name: Check if container running
         run: |
-            if [ "$( docker container inspect -f '{{.State.Status}}' hello_testing )" == "runnings" ]; then
+            if [ "$( docker container inspect -f '{{.State.Status}}' hello_testing )" == "running" ]; then
               echo "Container is running"
             else
               echo "Container is down"
