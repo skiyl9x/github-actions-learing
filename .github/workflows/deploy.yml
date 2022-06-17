@@ -23,6 +23,7 @@ jobs:
         DOCKER_CA_PEM: "${{ secrets.DOCKER_CA_PEM }}"
         DOCKER_CLIENT_CERT_PEM: "${{ secrets.DOCKER_CLIENT_CERT_PEM }}"
         DOCKER_CLIENT_KEY_PEM: "${{ secrets.DOCKER_CLIENT_KEY_PEM }}"
+        DOCKER_IP: "${{ secrets.DOCKER_IP }}"
        run: |
             echo "$DOCKER_CA_PEM" > ca.pem
             echo "$DOCKER_CLIENT_CERT_PEM" > client-cert.pem
@@ -31,6 +32,7 @@ jobs:
         name: check docker connection
         run: |
             docker --tlsverify --tlscacert=ca.pem --tlscert=client-cert.pem --tlskey=client-key.pem -H=35.240.69.156:2375 version
+            
       -
         name: Log in to the Container registry
         uses: docker/login-action@f054a8b539a109f9f41c372932f1ae047eff08c9
@@ -40,5 +42,7 @@ jobs:
           password: ${{ secrets.GITHUB_TOKEN }}   
       - 
         name: deploy application
+        env:
+          DOCKER_IP: "${{ secrets.DOCKER_IP }}"
         run: |
-            docker --tlsverify --tlscacert=ca.pem --tlscert=client-cert.pem --tlskey=client-key.pem -H=35.240.69.156:2375 run --name hello -d ${{ env.REGISTRY }}/${{ env.IMAGE_NAME }}:dev
+            docker --tlsverify --tlscacert=ca.pem --tlscert=client-cert.pem --tlskey=client-key.pem -H=$DOCKER_IP:2375 run --name hello -d ${{ env.REGISTRY }}/${{ env.IMAGE_NAME }}:dev
