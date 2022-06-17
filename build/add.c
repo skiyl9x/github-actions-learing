@@ -8,4 +8,3 @@ int main() {
        sleep(1);
     }       
 }
-//ada
