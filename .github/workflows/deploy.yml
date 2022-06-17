@@ -13,4 +13,12 @@ jobs:
     environment: production
     steps:
       - 
-        uses: actions/checkout@v3
+       name: copy certs
+       run: |
+            echo "${{ secrets.DOCKER_CA_PEM }}" > ca.pem
+            echo "${{ secrets.DOCKER_CLIENT_CERT_PEM }}" > cert.pem 
+            echo "${{ secrets.DOCKER_CLIENT_KEY_PEM }}" > key.pem
+      - 
+        name: check docker connection
+        run: |
+            docker --tlsverify --tlscacert=ca.pem --tlscert=cert.pem --tlskey=key.pem -H=35.240.69.15:2375 version
