@@ -1,0 +1,4 @@
+FROM redhat/ubi8:8.6-754
+ARG FILENAME=add
+COPY ${FILENAME} ${FILENAME}
+CMD ["/add"]
