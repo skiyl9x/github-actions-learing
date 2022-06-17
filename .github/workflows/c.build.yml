@@ -10,7 +10,7 @@ env:
 
 jobs:
   build_push_image:
-    runs-on: self-hosted
+    runs-on: RedHat8
     
     steps:
       - uses: actions/checkout@v3
@@ -39,3 +39,6 @@ jobs:
           push: true
           tags: ${{ steps.meta.outputs.tags }}
           labels: ${{ steps.meta.outputs.labels }}
+  # tests:
+  #   needs: list-dirs
+  #   runs-on: RedHat8
