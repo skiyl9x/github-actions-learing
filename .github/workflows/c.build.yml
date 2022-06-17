@@ -6,7 +6,7 @@ on:
       
 env:
   REGISTRY: ghcr.io
-  IMAGE_NAME: add_c_app
+  IMAGE_NAME: skiyl9x/add_c_app
 
 jobs:
   build:
