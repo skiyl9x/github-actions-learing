@@ -6,7 +6,7 @@ on:
       
 env:
   REGISTRY: ghcr.io
-  IMAGE_NAME: add_c_app:$GITHUB_RUN_ID
+  IMAGE_NAME: add_c_app
 
 jobs:
   build:
