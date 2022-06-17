@@ -26,4 +26,4 @@ jobs:
       - 
         name: check docker connection
         run: |
-            docker --tlsverify --tlscacert=ca.pem --tlscert=client-cert.pem --tlskey=client-key.pem -H=127.0.0.1:2375 version
+            docker --tlsverify --tlscacert=ca.pem --tlscert=client-cert.pem --tlskey=client-key.pem -H=35.240.69.156:2375 version
