@@ -23,13 +23,14 @@ jobs:
         DOCKER_CA_PEM: "${{ secrets.DOCKER_CA_PEM }}"
         DOCKER_CLIENT_CERT_PEM: "${{ secrets.DOCKER_CLIENT_CERT_PEM }}"
         DOCKER_CLIENT_KEY_PEM: "${{ secrets.DOCKER_CLIENT_KEY_PEM }}"
-        DOCKER_REMOTE_IP: 20.117.234.10
        run: |
             echo "$DOCKER_CA_PEM" > ca.pem
             echo "$DOCKER_CLIENT_CERT_PEM" > client-cert.pem
             echo "$DOCKER_CLIENT_KEY_PEM" > client-key.pem
       - 
         name: check docker connection
+        env:
+          DOCKER_REMOTE_IP: "${{ secrets.DOCKER_REMOTE_IP }}"
         run: |
             echo ${{ secrets.DOCKER_REMOTE_IP }}
             echo $DOCKER_REMOTE_IP
@@ -45,6 +46,6 @@ jobs:
       - 
         name: deploy application
         env:
-          DOCKER_REMOTE_IP: 20.117.234.10
+          DOCKER_REMOTE_IP: "${{ secrets.DOCKER_REMOTE_IP }}"
         run: |
             docker --tlsverify --tlscacert=ca.pem --tlscert=client-cert.pem --tlskey=client-key.pem -H=$DOCKER_REMOTE_IP:2375 run --name hello -d ${{ env.REGISTRY }}/${{ env.IMAGE_NAME }}:dev
