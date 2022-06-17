@@ -56,5 +56,7 @@ jobs:
               echo "Container is down"
             fi
       - name: Delete container
-        run: docker stop hello_testing && docker rm hello_testing
+        run: | 
+            docker stop hello_testing && docker rm hello_testing && docker rmi ${{needs.build_push_image.outputs.imageName}}
+
 
