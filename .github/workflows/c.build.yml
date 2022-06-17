@@ -6,7 +6,7 @@ on:
       
 env:
   REGISTRY: ghcr.io
-  IMAGE_NAME: skiyl9x/add_c_app
+  IMAGE_NAME: ${{ github.repository }}
 
 jobs:
   build:
