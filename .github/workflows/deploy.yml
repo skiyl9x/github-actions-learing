@@ -10,6 +10,8 @@ on:
 jobs:
   deployToTesting:
     runs-on: RedHat8
+    environment: testing
+    concurrency: testing
     steps:
       - 
        name: copy certs
