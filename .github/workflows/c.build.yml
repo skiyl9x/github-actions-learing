@@ -45,5 +45,6 @@ jobs:
     runs-on: RedHat8
 
     steps:
-      - name: Main test
-        run: echo ${{needs.build_push_image.outputs.imageName}}
+      - name: Run docker
+        run: docker run -d ${{needs.build_push_image.outputs.imageName}}
+
