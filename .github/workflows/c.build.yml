@@ -19,10 +19,10 @@ jobs:
         working-directory: build
         run: gcc -o add add.c
 
-      - name: Run a one-line script
-        working-directory: build
-        run: |
-            docker build -t ghcr.io/skiyl9x/add_c_app:$GITHUB_RUN_ID -f Dockerfile .
+        # - name: Run a one-line script
+        # working-directory: build
+        #run: |
+        #    docker build -t ghcr.io/skiyl9x/add_c_app:$GITHUB_RUN_ID -f Dockerfile .
 
       - name: Log in to the Container registry
         uses: docker/login-action@f054a8b539a109f9f41c372932f1ae047eff08c9
