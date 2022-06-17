@@ -11,7 +11,8 @@ env:
 jobs:
   build_push_image:
     runs-on: RedHat8
-    
+    outputs:
+      imageName: ${{ steps.meta.outputs.tags }}
     steps:
       - uses: actions/checkout@v3
 
@@ -39,6 +40,10 @@ jobs:
           push: true
           tags: ${{ steps.meta.outputs.tags }}
           labels: ${{ steps.meta.outputs.labels }}
-  # tests:
-  #   needs: list-dirs
-  #   runs-on: RedHat8
+  tests:
+    needs: build_push_image
+    runs-on: RedHat8
+
+    steps:
+      - name: Main test
+        run: echo ${{needs.build_push_image.outputs.imageName}}
