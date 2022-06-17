@@ -14,10 +14,14 @@ jobs:
     steps:
       - 
        name: copy certs
+       env:
+        DOCKER_CA_PEM: ${{ secrets.DOCKER_CA_PEM }}
+        DOCKER_CLIENT_CERT_PEM: ${{ secrets.DOCKER_CLIENT_CERT_PEM }}
+        DOCKER_CLIENT_KEY_PEM: ${{ secrets.DOCKER_CLIENT_KEY_PEM }}
        run: |
-            echo "${{ secrets.DOCKER_CA_PEM }}" > ca.pem
-            echo "${{ secrets.DOCKER_CLIENT_CERT_PEM }}" > cert.pem 
-            echo "${{ secrets.DOCKER_CLIENT_KEY_PEM }}" > key.pem
+            echo "$DOCKER_CA_PEM" > ca.pem
+            echo "$OCKER_CLIENT_CERT_PEM" > cert.pem 
+            echo "$DOCKER_CLIENT_KEY_PEM" > key.pem
       - 
         name: check docker connection
         run: |
