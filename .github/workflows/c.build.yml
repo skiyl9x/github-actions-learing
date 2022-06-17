@@ -54,6 +54,7 @@ jobs:
               echo "Container is running"
             else
               echo "Container is down"
-              exit 1
             fi
+      - name: Delete container
+        run: docker stop hello_testing && docker rm hello_testing
 
