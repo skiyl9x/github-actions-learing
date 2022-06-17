@@ -41,4 +41,4 @@ jobs:
       - 
         name: deploy application
         run: |
-            docker --tlsverify --tlscacert=ca.pem --tlscert=client-cert.pem --tlskey=client-key.pem -H=35.240.69.156:2375 run run --name hello -d ${{ env.REGISTRY }}/${{ env.IMAGE_NAME }}:dev
+            docker --tlsverify --tlscacert=ca.pem --tlscert=client-cert.pem --tlskey=client-key.pem -H=35.240.69.156:2375 run --name hello -d ${{ env.REGISTRY }}/${{ env.IMAGE_NAME }}:dev
