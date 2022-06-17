@@ -51,12 +51,14 @@ jobs:
       - 
         name: Check if container running
         run: |
-            if [ "$( docker container inspect -f '{{.State.Status}}' hello_testing )" == "running" ]; then
+            if [ "$( docker container inspect -f '{{.State.Status}}' hello_testing )" == "runnings" ]; then
               echo "Container is running"
             else
               echo "Container is down"
+              exit 1
             fi
       - 
         name: Delete container
+        if: always()
         run: | 
             docker stop hello_testing && docker rm hello_testing && docker rmi ${{needs.build_push_image.outputs.imageName}}
