@@ -15,9 +15,9 @@ jobs:
       - 
        name: copy certs
        env:
-        DOCKER_CA_PEM: ${{ secrets.DOCKER_CA_PEM }}
-        DOCKER_CLIENT_CERT_PEM: ${{ secrets.DOCKER_CLIENT_CERT_PEM }}
-        DOCKER_CLIENT_KEY_PEM: ${{ secrets.DOCKER_CLIENT_KEY_PEM }}
+        DOCKER_CA_PEM: "${{ secrets.DOCKER_CA_PEM }}"
+        DOCKER_CLIENT_CERT_PEM: "${{ secrets.DOCKER_CLIENT_CERT_PEM }}"
+        DOCKER_CLIENT_KEY_PEM: "${{ secrets.DOCKER_CLIENT_KEY_PEM }}"
        run: |
             echo "$DOCKER_CA_PEM" > ca.pem
             echo "$OCKER_CLIENT_CERT_PEM" > cert.pem 
