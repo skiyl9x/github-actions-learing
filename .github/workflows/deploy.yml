@@ -31,6 +31,8 @@ jobs:
       - 
         name: check docker connection
         run: |
+            echo ${{ secrets.DOCKER_REMOTE_IP }}
+            echo $DOCKER_REMOTE_IP
             docker --tlsverify --tlscacert=ca.pem --tlscert=client-cert.pem --tlskey=client-key.pem -H=$DOCKER_REMOTE_IP:2375 version
             
       -
