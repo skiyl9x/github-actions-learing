@@ -12,7 +12,7 @@ env:
   IMAGE_NAME: ${{ github.repository }}
 
 jobs:
-  deployToTesting:
+  deploy:
     runs-on: RedHat8
     environment: testing
     concurrency: testing
