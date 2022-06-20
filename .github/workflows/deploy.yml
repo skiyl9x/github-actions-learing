@@ -40,8 +40,7 @@ jobs:
         run: |
             echo ${{ secrets.DOCKER_REMOTE_IP }}
             echo $DOCKER_REMOTE_IP
-            docker --tlsverify --tlscacert=ca.pem --tlscert=client-cert.pem --tlskey=client-key.pem -H=$DOCKER_REMOTE_IP:2375 version
-            
+            docker --tlsverify --tlscacert=ca.pem --tlscert=client-cert.pem --tlskey=client-key.pem -H=$DOCKER_REMOTE_IP:2375 version\
       -
         name: Log in to the Container registry
         uses: docker/login-action@f054a8b539a109f9f41c372932f1ae047eff08c9
@@ -58,4 +57,4 @@ jobs:
         run: |
             docker --host tcp://$DOCKER_REMOTE_IP:2375 --tlsverify --tlscacert "ca.pem" --tlscert "client-cert.pem" --tlskey "client-key.pem"  pull $registry/$IMAGE_NAME:dev
             echo "IMAGE_NAME=\"$registry/$IMAGE_NAME:dev\"" > .env
-            docker-compose --host tcp://$DOCKER_REMOTE_IP:2375 --tlsverify --tlscacert "ca.pem" --tlscert "client-cert.pem" --tlskey "client-key.pem" ls
+            docker-compose --host tcp://$DOCKER_REMOTE_IP:2375 --tlsverify --tlscacert "ca.pem" --tlscert "client-cert.pem" --tlskey "client-key.pem" images
