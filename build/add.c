@@ -3,7 +3,7 @@
 int main() {
     int i;
     for(; ;) {
-       printf("hello\n");
+       printf("hello1\n");
        fflush(stdout);
        sleep(1);
     }       
