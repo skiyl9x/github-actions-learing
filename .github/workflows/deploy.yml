@@ -53,6 +53,8 @@ jobs:
         name: deploy application
         env:
           DOCKER_REMOTE_IP: "${{ secrets.DOCKER_REMOTE_IP }}"
+          registry: ${{ env.REGISTRY }}
+          IMAGE_NAME: ${{ env.IMAGE_NAME }}
         run: |
-            echo "IMAGE_NAME=${{ env.REGISTRY }}/${{ env.IMAGE_NAME }}:dev" > .env
+            echo "IMAGE_NAME=$registry/$IMAGE_NAME:dev" > .env
             docker-compose --host tcp://$DOCKER_REMOTE_IP:2375 --tlsverify --tlscacert "ca.pem" --tlscert "client-cert.pem" --tlskey "client-key.pem" up -d
