@@ -11,6 +11,10 @@ env:
   REGISTRY: ghcr.io
   IMAGE_NAME: ${{ github.repository }}
 
+defaults:
+ run:
+  working-directory: deploy
+  
 jobs:
   deploy:
     runs-on: RedHat8
@@ -19,12 +23,12 @@ jobs:
     steps:
       - 
        name: get certs
-       working-directory: deploy
        env:
         DOCKER_CA_PEM: "${{ secrets.DOCKER_CA_PEM }}"
         DOCKER_CLIENT_CERT_PEM: "${{ secrets.DOCKER_CLIENT_CERT_PEM }}"
         DOCKER_CLIENT_KEY_PEM: "${{ secrets.DOCKER_CLIENT_KEY_PEM }}"
        run: |
+            ls
             echo "$DOCKER_CA_PEM" > ca.pem
             echo "$DOCKER_CLIENT_CERT_PEM" > client-cert.pem
             echo "$DOCKER_CLIENT_KEY_PEM" > client-key.pem
@@ -46,7 +50,6 @@ jobs:
           password: ${{ secrets.GITHUB_TOKEN }}   
       - 
         name: deploy application
-        working-directory: deploy
         env:
           DOCKER_REMOTE_IP: "${{ secrets.DOCKER_REMOTE_IP }}"
         run: |
