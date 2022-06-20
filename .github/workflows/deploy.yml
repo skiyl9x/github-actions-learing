@@ -28,7 +28,6 @@ jobs:
         DOCKER_CLIENT_CERT_PEM: "${{ secrets.DOCKER_CLIENT_CERT_PEM }}"
         DOCKER_CLIENT_KEY_PEM: "${{ secrets.DOCKER_CLIENT_KEY_PEM }}"
        run: |
-            ls
             echo "$DOCKER_CA_PEM" > ca.pem
             echo "$DOCKER_CLIENT_CERT_PEM" > client-cert.pem
             echo "$DOCKER_CLIENT_KEY_PEM" > client-key.pem
