@@ -45,6 +45,7 @@ jobs:
           password: ${{ secrets.GITHUB_TOKEN }}   
       - 
         name: deploy application
+        working-directory: ./deploy
         env:
           DOCKER_REMOTE_IP: "${{ secrets.DOCKER_REMOTE_IP }}"
         run: |
