@@ -56,5 +56,6 @@ jobs:
           registry: ${{ env.REGISTRY }}
           IMAGE_NAME: ${{ env.IMAGE_NAME }}
         run: |
+            docker pull $registry/$IMAGE_NAME:dev
             echo "IMAGE_NAME=$registry/$IMAGE_NAME:dev" > .env
             docker-compose --host tcp://$DOCKER_REMOTE_IP:2375 --tlsverify --tlscacert "ca.pem" --tlscert "client-cert.pem" --tlskey "client-key.pem" up -d
