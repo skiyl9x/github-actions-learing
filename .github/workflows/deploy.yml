@@ -48,4 +48,5 @@ jobs:
         env:
           DOCKER_REMOTE_IP: "${{ secrets.DOCKER_REMOTE_IP }}"
         run: |
-            docker --tlsverify --tlscacert=ca.pem --tlscert=client-cert.pem --tlskey=client-key.pem -H=$DOCKER_REMOTE_IP:2375 run --name hello -d ${{ env.REGISTRY }}/${{ env.IMAGE_NAME }}:dev
+            echo "IMAGE_NAME=${{ env.REGISTRY }}/${{ env.IMAGE_NAME }}:dev" > .env
+            docker-compose --host tcp://$DOCKER_REMOTE_IP:2375 --tlsverify --tlscacert "ca.pem" --tlscert "client-cert.pem" --tlskey "client-key.pem" up -d
