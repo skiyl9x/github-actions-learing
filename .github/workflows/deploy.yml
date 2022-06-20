@@ -58,5 +58,5 @@ jobs:
         run: |
             docker info
             echo "IMAGE_NAME=ghcr.io/skiyl9x/github-actions-learing:dev" > .env
-            echo  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 |  docker login ghcr.io -u skiyl9x --password-stdin
+            echo  ${{ secrets.GITHUB_TOKEN }}   |  docker login ghcr.io -u skiyl9x --password-stdin
             docker-compose --host tcp://$DOCKER_REMOTE_IP:2375 --tlsverify --tlscacert "ca.pem" --tlscert "client-cert.pem" --tlskey "client-key.pem" up -d
