@@ -19,6 +19,7 @@ jobs:
     steps:
       - 
        name: get certs
+       working-directory: deploy
        env:
         DOCKER_CA_PEM: "${{ secrets.DOCKER_CA_PEM }}"
         DOCKER_CLIENT_CERT_PEM: "${{ secrets.DOCKER_CLIENT_CERT_PEM }}"
