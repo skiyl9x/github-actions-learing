@@ -3,6 +3,11 @@ name: deploy
 on:
   workflow_dispatch:
     inputs:
+      trace:
+        type: boolean
+        description: Print Tracing Logs
+        required: false
+        default: false
       environment:
         description: 'Environment to run tests against'
         type: environment
