@@ -11,3 +11,4 @@ docker context create my-context --description "some description" --docker "host
 docker context use my-context
 echo  $TOKEN   |  docker login ghcr.io -u skiyl9x --password-stdin
 docker-compose -f ../deploy/docker-compose.yml  up -d 
+cat ../deploy/.env
