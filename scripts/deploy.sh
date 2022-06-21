@@ -24,4 +24,4 @@ TAG=${6}
 whoami
 echo "IMAGE = \"$REGISTRY_URL/$IMAGE_NAME:$TAG\"" > ../deploy/.env
 echo "$PRIVATE_SSH_KEY" > ~/.ssh/id_rsa
-docker-compose -H ssh://$USER@$DOCKER_REMOTE_IP -f ../deploy/docker-compose.yml up -d
+docker-compose -H "ssh://$USER@$DOCKER_REMOTE_IP" -f ../deploy/docker-compose.yml up -d
