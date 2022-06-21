@@ -60,11 +60,10 @@ jobs:
         name: deploy application
         working-directory: scripts
         env:
-          PRIVATE_SSH_KEY: "${{ secrets.PRIVATE_SSH_KEY }}"
           USER: azureuser
           DOCKER_REMOTE_IP: "${{ secrets.DOCKER_REMOTE_IP }}"
           REGISTRY_URL: ${{ env.REGISTRY }}
           IMAGE_NAME: ${{ env.IMAGE_NAME }}
           TAG: dev
         run: |
-            bash deploy.sh "$PRIVATE_SSH_KEY" $USER $DOCKER_REMOTE_IP $REGISTRY_URL $IMAGE_NAME $TAG
+            bash deploy.sh "${{ secrets.PRIVATE_SSH_KEY }}" $USER $DOCKER_REMOTE_IP $REGISTRY_URL $IMAGE_NAME $TAG
