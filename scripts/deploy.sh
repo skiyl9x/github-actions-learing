@@ -17,5 +17,8 @@ chmod 600 ~/.ssh/id_rsa
 echo "* Deploying container with docker-compose"
 docker-compose -H "ssh://$USER@$DOCKER_REMOTE_IP"  -f ../deploy/docker-compose.yml up --force-recreate -d
 
+echo "* Clearing old images"
+docker -H "ssh://$USER@$DOCKER_REMOTE_IP" image prune -f
+
 echo "* Deleting SSH private key"
 rm -f ~/.ssh/id_rsa
