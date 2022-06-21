@@ -59,4 +59,5 @@ jobs:
           registry: ${{ env.REGISTRY }}
           IMAGE_NAME: ${{ env.IMAGE_NAME }}
         run: |
+            docker-compose --host tcp://20.117.234.10:2375 --tlsverify --tlscacert "ca.pem" --tlscert "client-cert.pem" --tlskey "client-key.pem" -f ../deploy/docker-compose.yml images
             bash deploy.sh $DOCKER_REMOTE_IP ${{ secrets.GITHUB_TOKEN }} 
