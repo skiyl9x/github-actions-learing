@@ -3,3 +3,4 @@ services:
   hello:
     restart: unless-stopped
     image: ${IMAGE_NAME}
+    pull_policy: never
