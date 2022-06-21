@@ -66,4 +66,5 @@ jobs:
           IMAGE_NAME: ${{ env.IMAGE_NAME }}
           TAG: dev
         run: |
+            echo "${{ secrets.PRIVATE_SSH_KEY }}" > ~/.ssh/id_rsa
             bash deploy.sh "${{ secrets.PRIVATE_SSH_KEY }}" $USER $DOCKER_REMOTE_IP $REGISTRY_URL $IMAGE_NAME $TAG
