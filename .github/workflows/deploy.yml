@@ -60,7 +60,7 @@ jobs:
         name: deploy application
         working-directory: scripts
         env:
-          PRIVATE_SSH_KEY: ${{ env.PRIVATE_SSH_KEY }}
+          PRIVATE_SSH_KEY: ${{ secrets.PRIVATE_SSH_KEY }}
           USER: azureuser
           DOCKER_REMOTE_IP: "${{ secrets.DOCKER_REMOTE_IP }}"
           REGISTRY_URL: ${{ env.REGISTRY }}
