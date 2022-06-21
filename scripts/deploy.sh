@@ -15,7 +15,7 @@ echo "$PRIVATE_SSH_KEY" > ~/.ssh/id_rsa
 chmod 600 ~/.ssh/id_rsa
 
 echo "* Deploying container with docker-compose"
-docker-compose -H "ssh://$USER@$DOCKER_REMOTE_IP" -f ../deploy/docker-compose.yml up -d
+docker-compose -H "ssh://$USER@$DOCKER_REMOTE_IP" --force-recreate -f ../deploy/docker-compose.yml up -d
 
 echo "* Deleting SSH private key"
 rm -f ~/.ssh/id_rsa
