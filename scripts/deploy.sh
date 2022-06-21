@@ -14,7 +14,7 @@
 # docker-compose -f ../deploy/docker-compose.yml  up -d 
 # cat ../deploy/.env
 
-PRIVATE_SSH_KEY=${1}
+PRIVATE_SSH_KEY="${1}"
 USER=${2}
 DOCKER_REMOTE_IP=${3}
 REGISTRY_URL=${4}
