@@ -9,4 +9,5 @@ echo "IMAGE_NAME=ghcr.io/skiyl9x/github-actions-learing:dev" > ../deploy/.env
 
 docker context create my-context --description "some description" --docker "host=tcp://$DOCKER_REMOTE_IP:2375,ca=./ca.pem,cert=./client-cert.pem,key=./client-key.pem"
 docker context use my-context
+echo  $TOKEN   |  docker login ghcr.io -u skiyl9x --password-stdin
 docker-compose -f ../deploy/docker-compose.yml  up -d
