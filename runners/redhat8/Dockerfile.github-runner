@@ -2,7 +2,7 @@ FROM redhat/ubi8:8.6-754
 ARG HOST_UID=1000
 ARG HOST_GID=990
 ARG USERNAME=runner
-RUN yum install jq yum-utils gcc -y && \
+RUN yum install ssh jq yum-utils gcc -y && \
     yum-config-manager \
     --add-repo \
     https://download.docker.com/linux/centos/docker-ce.repo && \
