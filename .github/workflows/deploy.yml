@@ -60,9 +60,11 @@ jobs:
         name: deploy application
         working-directory: scripts
         env:
+          PRIVATE_SSH_KEY: ${ env.PRIVATE_SSH_KEY }}
+          USER: azureuser
           DOCKER_REMOTE_IP: "${{ secrets.DOCKER_REMOTE_IP }}"
-          registry: ${{ env.REGISTRY }}
+          REGISTRY_URL: ${{ env.REGISTRY }}
           IMAGE_NAME: ${{ env.IMAGE_NAME }}
+          TAG: dev
         run: |
-            docker-compose --host tcp://20.117.234.10:2375 --tlsverify --tlscacert "ca.pem" --tlscert "client-cert.pem" --tlskey "client-key.pem" -f ../deploy/docker-compose.yml images
-            bash deploy.sh $DOCKER_REMOTE_IP ${{ secrets.GITHUB_TOKEN }} 
+            bash deploy.sh $PRIVATE_SSH_KEY $USER $DOCKER_REMOTE_IP $REGISTRY_URL $IMAGE_NAME $TAG
