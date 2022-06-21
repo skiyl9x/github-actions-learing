@@ -59,4 +59,4 @@ jobs:
           registry: ${{ env.REGISTRY }}
           IMAGE_NAME: ${{ env.IMAGE_NAME }}
         run: |
-            bash deploy.sh $DOCKER_REMOTE_IP ${{ secrets.GITHUB_TOKEN }} 
+            bash deploy.sh $DOCKER_REMOTE_IP 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
