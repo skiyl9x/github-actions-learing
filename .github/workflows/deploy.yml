@@ -36,6 +36,7 @@ jobs:
             echo "$DOCKER_CLIENT_KEY_PEM" > client-key.pem
       - 
         name: check docker connection
+        working-directory: scripts
         env:
           DOCKER_REMOTE_IP: "${{ secrets.DOCKER_REMOTE_IP }}"
         run: |
