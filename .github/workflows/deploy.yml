@@ -19,7 +19,7 @@ jobs:
   deploy:
     environment: testing
     concurrency: testing
-    runs-on: ubuntu
+    runs-on: ubuntu-latest
     steps:
       -
        uses: actions/checkout@v3
