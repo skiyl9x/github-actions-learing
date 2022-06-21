@@ -1,6 +1,6 @@
 #!/bin/bash
 
-$DOCKER_REMOTE_IP=${1}
+DOCKER_REMOTE_IP=${1}
 TOKEN=${2}
 
 echo "IMAGE_NAME=ghcr.io/skiyl9x/github-actions-learing:dev" > ../deploy/.env
