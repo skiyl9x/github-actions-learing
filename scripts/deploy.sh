@@ -29,23 +29,30 @@ stepMessage() {
 
 stepMessage "Creating .env file for docker-compose"
 (echo "IMAGE = \"$REGISTRY_URL/$IMAGE_NAME:$TAG\"" > ../deploy/.env) > result 2>&1
+check_result $?
 
 stepMessage "* Adding SSH private key"
 ( mkdir -p ~/.ssh &&
 echo "$PRIVATE_SSH_KEY" > ~/.ssh/id_rsa &&
 chmod 600 ~/.ssh/id_rsa ) > result 2>&1
+check_result $?
 
 echo "* Update known hosts"
 ( ssh -o StrictHostKeyChecking=no $USER@$DOCKER_REMOTE_IP : ) > result 2>&1
+check_result $?
 
 stepMessage "* Deploying container with docker-compose"
 ( docker-compose -H "ssh://$USER@$DOCKER_REMOTE_IP"  -f ../deploy/docker-compose.yml up --force-recreate -d ) > result 2>&1
+check_result $?
 
 stepMessage "* Clearing old images"
 ( docker -H "ssh://$USER@$DOCKER_REMOTE_IP" image prune -f ) > result 2>&1
+check_result $?
 
 stepMessage "* Deleting SSH private key"
 ( rm -f ~/.ssh/id_rsa ) > result 2>&1
+check_result $?
 
 stepMessage "* Clear known hosts"
 ( cat /dev/null > ~/.ssh/known_hosts ) > result 2>&1
+check_result $?
