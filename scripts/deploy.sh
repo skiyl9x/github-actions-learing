@@ -14,6 +14,9 @@ mkdir -p ~/.ssh
 echo "$PRIVATE_SSH_KEY" > ~/.ssh/id_rsa
 chmod 600 ~/.ssh/id_rsa
 
+echo "* Update known hosts"
+ssh -o StrictHostKeyChecking=no $USER@$DOCKER_REMOTE_IP :
+
 echo "* Deploying container with docker-compose"
 docker-compose -H "ssh://$USER@$DOCKER_REMOTE_IP"  -f ../deploy/docker-compose.yml up --force-recreate -d
 
@@ -22,3 +25,6 @@ docker -H "ssh://$USER@$DOCKER_REMOTE_IP" image prune -f
 
 echo "* Deleting SSH private key"
 rm -f ~/.ssh/id_rsa
+
+echo "* Clear known hosts"
+cat /dev/null > ~/.ssh/known_hosts
