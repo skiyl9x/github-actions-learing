@@ -37,7 +37,7 @@ echo "$PRIVATE_SSH_KEY" > ~/.ssh/id_rsa &&
 chmod 600 ~/.ssh/id_rsa ) > result 2>&1
 check_result $?
 
-echo "Update known hosts"
+stepMessage "Update known hosts"
 ( ssh -o StrictHostKeyChecking=no $USER@$DOCKER_REMOTE_IP : ) > result 2>&1
 check_result $?
 
