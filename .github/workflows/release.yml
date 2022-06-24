@@ -11,28 +11,35 @@ jobs:
         uses: actions/checkout@v2
         with:
           fetch-depth: 0
-      - name: Changelog
-        uses: Bullrich/generate-release-changelog@master
-        id: Changelog
-        env:
-          REPO: ${{ github.repository }}
-          
-#       - name: release
-#         uses: actions/create-release@v1
-#         id: create_release
-#         with:
-#           draft: false
-#           prerelease: false
-#           release_name: v1.0.3
-#           tag_name: v1.0.3
-#           body: |
-#             ${{ steps.Changelog.outputs.changelog }}
+#       - name: Changelog
+#         uses: Bullrich/generate-release-changelog@master
+#         id: Changelog
 #         env:
-#           GITHUB_TOKEN: ${{ github.token }}
-      - name: Output changelog
-        run: echo "${{ steps.Changelog.outputs.changelog }}"
+#           REPO: ${{ github.repository }}
           
-      - uses: google-github-actions/release-please-action@v3
+# #       - name: release
+# #         uses: actions/create-release@v1
+# #         id: create_release
+# #         with:
+# #           draft: false
+# #           prerelease: false
+# #           release_name: v1.0.3
+# #           tag_name: v1.0.3
+# #           body: |
+# #             ${{ steps.Changelog.outputs.changelog }}
+# #         env:
+# #           GITHUB_TOKEN: ${{ github.token }}
+#       - name: Output changelog
+#         run: echo "${{ steps.Changelog.outputs.changelog }}"
+          
+#       - uses: google-github-actions/release-please-action@v3
+#         with:
+#           release-type: cpp
+#           package-name: release-please-action
+
+      - uses: snyk/release-notes-preview@v1.6.1
         with:
-          release-type: cpp
-          package-name: release-please-action
+          releaseBranch: main
+        env:
+          GITHUB_PR_USERNAME: ${{ github.actor }}
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
