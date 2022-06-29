@@ -58,6 +58,7 @@ jobs:
             gh auth login --with-token < .githubtoken
             rm -f .githubtoken
             git push --tags
+            git push
             version=$(cat .cz.toml  | tail -1 | awk -F "=" '{print $2}' |  sed 's/"//g')   
             gh release create $version -F ./CHANGELOG.md
               
