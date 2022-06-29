@@ -16,6 +16,8 @@ jobs:
             cz version
       - name: Create changelog
         run: |
+            git config --global user.email "skiyl9x@gmail.com"
+            git config --global user.name "Alex"
             cz bump --yes --changelog
 #       - name: Changelog
 #         uses: Bullrich/generate-release-changelog@master
@@ -35,8 +37,7 @@ jobs:
 #             ${{ steps.Changelog.outputs.changelog }}
 #         env:
 #           GITHUB_TOKEN: ${{ github.token }}
-      - name: Output changelog
-        run: echo "${{ steps.Changelog.outputs.changelog }}" > CHANGELOG.md
+
           
 #       - uses: google-github-actions/release-please-action@v3
 #         with:
@@ -56,6 +57,6 @@ jobs:
             echo ${{ secrets.GITHUB_TOKEN }} > .githubtoken
             gh auth login --with-token < .githubtoken
             rm -f .githubtoken
-            version=$(cat .cz.toml  | tail -1 | awk -F "=" '{print $2}')   
+            version=$(cat .cz.toml  | tail -1 | awk -F "=" '{print $2}' |  sed 's/"//g')   
             gh release create $version -F ./CHANGELOG.md
               
