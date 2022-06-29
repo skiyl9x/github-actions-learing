@@ -57,6 +57,6 @@ jobs:
             echo ${{ secrets.GITHUB_TOKEN }} > .githubtoken
             gh auth login --with-token < .githubtoken
             rm -f .githubtoken
-            version=$(cat .cz.toml  | tail -1 | awk -F "=" '{print $2}')   
+            version=$(cat .cz.toml  | tail -1 | awk -F "=" '{print $2}' |  sed 's/"//g')   
             gh release create $version -F ./CHANGELOG.md
               
