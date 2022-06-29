@@ -16,6 +16,8 @@ jobs:
             cz version
       - name: Create changelog
         run: |
+            git config --global user.email "skiyl9x@gmail.com"
+            git config --global user.name "Alex"
             cz bump --yes --changelog
 #       - name: Changelog
 #         uses: Bullrich/generate-release-changelog@master
