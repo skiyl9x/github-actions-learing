@@ -16,25 +16,25 @@ jobs:
         env:
           REPO: ${{ github.repository }}
           
-      - name: release
-        uses: actions/create-release@v1
-        id: create_release
-        with:
-          draft: false
-          prerelease: false
-          release_name: v1.0.4
-          tag_name: v1.0.4
-          body: |
-            ${{ steps.Changelog.outputs.changelog }}
-        env:
-          GITHUB_TOKEN: ${{ github.token }}
-#       - name: Output changelog
-#         run: echo "${{ steps.Changelog.outputs.changelog }}"
-          
-#       - uses: google-github-actions/release-please-action@v3
+#       - name: release
+#         uses: actions/create-release@v1
+#         id: create_release
 #         with:
-#           release-type: cpp
-#           package-name: release-please-action
+#           draft: false
+#           prerelease: false
+#           release_name: v1.0.4
+#           tag_name: v1.0.4
+#           body: |
+#             ${{ steps.Changelog.outputs.changelog }}
+#         env:
+#           GITHUB_TOKEN: ${{ github.token }}
+      - name: Output changelog
+        run: echo "${{ steps.Changelog.outputs.changelog }}" > CHANGELOG.md
+          
+      - uses: google-github-actions/release-please-action@v3
+        with:
+          release-type: cpp
+          package-name: release-please-action
 
 #       - uses: snyk/release-notes-preview@v1.6.1
 #         with:
