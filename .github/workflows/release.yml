@@ -33,7 +33,7 @@ jobs:
           
       - uses: google-github-actions/release-please-action@v3
         with:
-          release-type: cpp
+          release-type: simple
           package-name: release-please-action
 
 #       - uses: snyk/release-notes-preview@v1.6.1
