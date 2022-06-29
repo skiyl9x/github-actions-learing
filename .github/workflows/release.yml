@@ -37,8 +37,7 @@ jobs:
 #             ${{ steps.Changelog.outputs.changelog }}
 #         env:
 #           GITHUB_TOKEN: ${{ github.token }}
-      - name: Output changelog
-        run: echo "${{ steps.Changelog.outputs.changelog }}" > CHANGELOG.md
+
           
 #       - uses: google-github-actions/release-please-action@v3
 #         with:
