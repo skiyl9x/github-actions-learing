@@ -7,20 +7,24 @@ jobs:
   release-please:
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v2
+      - name: Check out
+        uses: actions/checkout@v2
+        with:
+          fetch-depth: 0
+          token: "${{ secrets.GITHUB_TOKEN }}"
       
-      - run: |
-          git fetch --prune --unshallow --tags
-      - name: Install commitzen
-        run: |
-            pip install -U commitizen
-            cz version
-      - name: Create changelog
-        run: |
-            git tag 
-            git config --global user.email "skiyl9x@gmail.com"
-            git config --global user.name "Alex"
-            cz bump --yes --changelog
+#       - run: |
+#           git fetch --prune --unshallow --tags
+#       - name: Install commitzen
+#         run: |
+#             pip install -U commitizen
+#             cz version
+#       - name: Create changelog
+#         run: |
+#             git tag 
+#             git config --global user.email "skiyl9x@gmail.com"
+#             git config --global user.name "Alex"
+#             cz bump --yes --changelog
 #       - name: Changelog
 #         uses: Bullrich/generate-release-changelog@master
 #         id: Changelog
@@ -54,13 +58,27 @@ jobs:
 #           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 # #
 
-      - name: Release create
-        run: | 
-            echo ${{ secrets.GITHUB_TOKEN }} > .githubtoken
-            gh auth login --with-token < .githubtoken
-            rm -f .githubtoken
-            git push --tags
-            git push
-            version=$(cat .cz.toml  | tail -1 | awk -F "=" '{print $2}' |  sed 's/"//g')   
-            gh release create $version -F ./CHANGELOG.md
+#       - name: Release create
+#         run: | 
+#             echo ${{ secrets.GITHUB_TOKEN }} > .githubtoken
+#             gh auth login --with-token < .githubtoken
+#             rm -f .githubtoken
+#             git push --tags
+#             git push
+#             version=$(cat .cz.toml  | tail -1 | awk -F "=" '{print $2}' |  sed 's/"//g')   
+#             gh release create $version -F ./CHANGELOG.md
+            
+            
+      - name: Create bump and changelog
+        uses: commitizen-tools/commitizen-action@master
+        with:
+            github_token: ${{ secrets.GITHUB_TOKEN }}
+            changelog_increment_filename: body.md
+      - name: Release
+        uses: softprops/action-gh-release@v1
+        with:
+            body_path: "body.md"
+            tag_name: ${{ env.REVISION }}
+        env:
+            GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
               
