@@ -8,13 +8,13 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v2
-      - run: |
-          git fetch --prune --unshallow --tags
-#       - name: Changelog
-#         uses: Bullrich/generate-release-changelog@master
-#         id: Changelog
-#         env:
-#           REPO: ${{ github.repository }}
+#       - run: |
+#           git fetch --prune --unshallow --tags
+      - name: Changelog
+        uses: Bullrich/generate-release-changelog@master
+        id: Changelog
+        env:
+          REPO: ${{ github.repository }}
           
 #       - name: release
 #         uses: actions/create-release@v1
@@ -28,8 +28,8 @@ jobs:
 #             ${{ steps.Changelog.outputs.changelog }}
 #         env:
 #           GITHUB_TOKEN: ${{ github.token }}
-#       - name: Output changelog
-#         run: echo "${{ steps.Changelog.outputs.changelog }}" > CHANGELOG.md
+      - name: Output changelog
+        run: echo "${{ steps.Changelog.outputs.changelog }}" > CHANGELOG.md
           
 #       - uses: google-github-actions/release-please-action@v3
 #         with:
@@ -49,5 +49,5 @@ jobs:
             echo ${{ secrets.GITHUB_TOKEN }} > .githubtoken
             gh auth login --with-token < .githubtoken
             rm -f .githubtoken
-            gh release list
+            gh release create v1.0.7 -F ./CHANGELOG.md
               
