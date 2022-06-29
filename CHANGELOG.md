@@ -2,6 +2,18 @@
 
 ### Fix
 
+- adasd
+- asd
+- asd
+
+### Feat
+
+- ad
+
+## 2.6.0 (2022-06-29)
+
+### Fix
+
 - smasd
 
 ### Feat
