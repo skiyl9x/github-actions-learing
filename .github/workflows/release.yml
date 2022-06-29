@@ -16,6 +16,7 @@ jobs:
             cz version
       - name: Create changelog
         run: |
+            git tag 
             git config --global user.email "skiyl9x@gmail.com"
             git config --global user.name "Alex"
             cz bump --yes --changelog
