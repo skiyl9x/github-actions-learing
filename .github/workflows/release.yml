@@ -36,11 +36,18 @@ jobs:
 #           release-type: simple
 #           package-name: release-please-action
 
-      - uses: snyk/release-notes-preview@v1.6.1
-        with:
-          releaseBranch: main
-        env:
-          GITHUB_PR_USERNAME: ${{ github.actor }}
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-#
+#       - uses: snyk/release-notes-preview@v1.6.1
+#         with:
+#           releaseBranch: main
+#         env:
+#           GITHUB_PR_USERNAME: ${{ github.actor }}
+#           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+# #
 
+      - name: Release create
+        run: | 
+            echo ${{ secrets.GITHUB_TOKEN }} > .githubtoken
+            gh auth login --with-token < .githubtoken
+            rm -f .githubtoken
+            gh release list
+              
