@@ -22,8 +22,8 @@ jobs:
         with:
           draft: false
           prerelease: false
-          release_name: v1.0.3
-          tag_name: v1.0.3
+          release_name: v1.0.4
+          tag_name: v1.0.4
           body: |
             ${{ steps.Changelog.outputs.changelog }}
         env:
