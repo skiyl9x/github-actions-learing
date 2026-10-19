@@ -1,0 +1,69 @@
+name: cppcheck
+
+on:
+  push:
+    branches: [main]          # baseline: PR results are compared with this branch
+  pull_request:
+  workflow_dispatch:
+
+permissions:
+  contents: read
+  security-events: write      # upload SARIF to code scanning
+  actions: read               # needed by upload-sarif in private repositories
+
+env:
+  CPPCHECK_VERSION: "2.22.0"  # SARIF output needs a recent cppcheck (distro packages are often too old)
+
+jobs:
+  cppcheck:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v7
+
+      # --- Install cppcheck (built from source once, then restored from cache) ---
+      - name: Restore cppcheck from cache
+        id: cache
+        uses: actions/cache@v6
+        with:
+          path: ~/cppcheck
+          key: cppcheck-${{ env.CPPCHECK_VERSION }}-${{ runner.os }}-${{ runner.arch }}
+
+      - name: Build cppcheck
+        if: steps.cache.outputs.cache-hit != 'true'
+        run: |
+          git clone --depth 1 -b "$CPPCHECK_VERSION" https://github.com/danmar/cppcheck /tmp/cppcheck-src
+          cmake -S /tmp/cppcheck-src -B /tmp/cppcheck-build \
+            -DCMAKE_BUILD_TYPE=Release -DUSE_MATCHCOMPILER=ON \
+            -DBUILD_GUI=OFF -DBUILD_TESTING=OFF \
+            -DCMAKE_INSTALL_PREFIX="$HOME/cppcheck" -DFILESDIR="$HOME/cppcheck/share/cppcheck"
+          cmake --build /tmp/cppcheck-build -j"$(nproc)"
+          cmake --install /tmp/cppcheck-build
+
+      - name: Add cppcheck to PATH
+        run: |
+          echo "$HOME/cppcheck/bin" >> "$GITHUB_PATH"
+          "$HOME/cppcheck/bin/cppcheck" --version
+
+      # --- Analyze ---
+      # Run from the repo root with relative paths, so findings map to files in the PR.
+      # For a CMake project use: --project=build/compile_commands.json
+      - name: Run cppcheck
+        run: |
+          cppcheck src/ \
+            --enable=warning,style,performance,portability \
+            --inline-suppr \
+            --output-format=sarif \
+            --output-file=cppcheck.sarif
+
+      - name: Show findings in the log
+        if: always()
+        run: |
+          jq -r '.runs[].results[] | "\(.level)\t\(.ruleId)\t\(.locations[0].physicalLocation.artifactLocation.uri):\(.locations[0].physicalLocation.region.startLine)\t\(.message.text)"' cppcheck.sarif
+
+      # --- Upload to GitHub code scanning (Security tab + PR annotations) ---
+      - name: Upload SARIF
+        if: always()
+        uses: github/codeql-action/upload-sarif@v4
+        with:
+          sarif_file: cppcheck.sarif
+          category: cppcheck        # one category per tool (and per app in a monorepo)
